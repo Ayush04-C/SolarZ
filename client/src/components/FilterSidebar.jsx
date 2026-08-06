@@ -13,12 +13,12 @@ const FilterSidebar = ({ availableFilters, currentFilters, onFilterChange, allCa
   };
 
   return (
-    <aside className="filter-sidebar">
-      <h3>Filters</h3>
+    <aside className="card filter-sidebar">
+      <h3 className="filter-title">Filters</h3>
       
       <div className="filter-group">
         <label>Category</label>
-        <select value={currentFilters.category || ''} onChange={handleCategoryChange}>
+        <select className="input" value={currentFilters.category || ''} onChange={handleCategoryChange}>
           <option value="">All Categories</option>
           {availableFilters.categories?.map(catId => {
             const cat = allCategories.find(c => c._id === catId);
@@ -33,7 +33,7 @@ const FilterSidebar = ({ availableFilters, currentFilters, onFilterChange, allCa
 
       <div className="filter-group">
         <label>City</label>
-        <select value={currentFilters.city || ''} onChange={handleCityChange}>
+        <select className="input" value={currentFilters.city || ''} onChange={handleCityChange}>
           <option value="">All Cities</option>
           {availableFilters.cities?.map(city => (
             <option key={city} value={city}>{city}</option>
@@ -44,6 +44,7 @@ const FilterSidebar = ({ availableFilters, currentFilters, onFilterChange, allCa
       <div className="filter-group">
         <label>Min Price ($)</label>
         <input 
+          className="input"
           type="number" 
           value={currentFilters.minPrice || ''} 
           onChange={(e) => handlePriceChange(e, 'minPrice')}
@@ -54,6 +55,7 @@ const FilterSidebar = ({ availableFilters, currentFilters, onFilterChange, allCa
       <div className="filter-group">
         <label>Max Price ($)</label>
         <input 
+          className="input"
           type="number" 
           value={currentFilters.maxPrice || ''} 
           onChange={(e) => handlePriceChange(e, 'maxPrice')}
@@ -61,7 +63,7 @@ const FilterSidebar = ({ availableFilters, currentFilters, onFilterChange, allCa
         />
       </div>
 
-      <button className="clear-filters-btn" onClick={() => onFilterChange('clear', null)}>
+      <button className="btn-secondary clear-filters-btn" onClick={() => onFilterChange('clear', null)}>
         Clear Filters
       </button>
     </aside>

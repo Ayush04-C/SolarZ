@@ -57,32 +57,48 @@ const ProductDetails = () => {
 
   return (
     <div className="product-details-page">
-      <div className="pd-header">
-        <div className="pd-gallery">
+      <div className="pd-header" style={{ display: 'flex', gap: 'var(--space-8)', flexWrap: 'wrap', alignItems: 'flex-start', marginBottom: 'var(--space-8)' }}>
+        <div className="card pd-gallery" style={{ flex: '1 1 400px', padding: 0, overflow: 'hidden' }}>
           {product.images?.length > 0 ? (
              product.images.map((img, i) => (
-                <img key={i} src={`${import.meta.env.VITE_API_URL}${img}`} alt={`${product.name} ${i}`} className="pd-main-img" />
+                <img key={i} src={`${import.meta.env.VITE_API_URL}${img}`} alt={`${product.name} ${i}`} className="pd-main-img" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
              ))
           ) : (
-            <img src="https://via.placeholder.com/500x400?text=No+Image" alt="No image" className="pd-main-img" />
+            <img src="https://via.placeholder.com/500x400?text=No+Image" alt="No image" className="pd-main-img" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           )}
         </div>
-        <div className="pd-info">
-          <h2>{product.name}</h2>
-          <p className="pd-category">{product.category?.name}</p>
-          <div className="pd-meta">
-            <span className="pd-price">${product.price.toFixed(2)}</span>
-            <span className="pd-rating">★ {product.rating || 'No ratings'}</span>
+        <div className="card pd-info" style={{ flex: '1 1 400px', display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', padding: 'var(--space-6)' }}>
+          <div>
+            <h2 className="pd-title" style={{ fontFamily: 'var(--font-display)', marginBottom: 'var(--space-2)' }}>{product.name}</h2>
+            <p className="pd-category" style={{ color: 'var(--color-primary)', textTransform: 'uppercase', fontSize: '0.875rem', fontWeight: '600' }}>{product.category?.name}</p>
           </div>
-          <p className="pd-desc">{product.description}</p>
-          <div className="pd-seller-info">
-            <p><strong>Seller:</strong> {product.seller?.name}</p>
-            <p><strong>Location:</strong> {product.location?.city}, {product.location?.district}</p>
-            <p><strong>Stock:</strong> {product.stock > 0 ? `${product.stock} available` : 'Out of Stock'}</p>
+          
+          <div className="pd-meta" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+            <span className="price-tag pd-price" style={{ fontSize: '1.25rem', padding: 'var(--space-2) var(--space-3)' }}>${product.price.toFixed(2)}</span>
+            <span className="rating pd-rating" style={{ color: 'var(--color-text-muted)' }}>⭐ {product.rating || 'No ratings'}</span>
+          </div>
+          
+          <p className="pd-desc" style={{ lineHeight: '1.7', color: 'var(--color-text)' }}>{product.description}</p>
+          
+          <div className="pd-seller-info" style={{ backgroundColor: 'var(--color-bg)', padding: 'var(--space-4)', borderRadius: 'var(--radius-md)', display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <strong style={{ color: 'var(--color-text-muted)' }}>Seller:</strong> 
+              <span>{product.seller?.name}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <strong style={{ color: 'var(--color-text-muted)' }}>Location:</strong> 
+              <span>{product.location?.city}, {product.location?.district}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <strong style={{ color: 'var(--color-text-muted)' }}>Stock:</strong> 
+              <span style={{ color: product.stock > 0 ? 'var(--color-primary)' : 'var(--color-danger)', fontWeight: '600' }}>
+                {product.stock > 0 ? `${product.stock} available` : 'Out of Stock'}
+              </span>
+            </div>
           </div>
           
           <button 
-            className="add-to-cart-btn" 
+            className="btn-primary pd-add-btn" 
             onClick={handleAddToCart}
             disabled={addingToCart || product.stock === 0}
           >
@@ -92,16 +108,16 @@ const ProductDetails = () => {
       </div>
 
       <div className="pd-reviews">
-        <h3>Reviews</h3>
+        <h3 className="pd-reviews-title">Reviews</h3>
         {reviews.length === 0 ? (
-          <p>No reviews yet.</p>
+          <p className="text-muted">No reviews yet.</p>
         ) : (
           <div className="review-list">
             {reviews.map(review => (
-              <div key={review._id} className="review-card">
+              <div key={review._id} className="card review-card">
                 <div className="review-header">
                   <strong>{review.user?.name}</strong>
-                  <span>★ {review.rating}</span>
+                  <span className="rating">⭐ {review.rating}</span>
                 </div>
                 <p>{review.comment}</p>
               </div>

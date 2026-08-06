@@ -82,7 +82,10 @@ const ProductList = () => {
   return (
     <div className="product-list-page">
       <div className="pl-header">
-        <h2>Our Products</h2>
+        <div className="pl-title-group">
+          <h2 className="pl-title">Our Products</h2>
+          <p className="pl-subtitle">Fresh finds from sellers near you</p>
+        </div>
         <SearchBar initialValue={searchParams.get('search') || ''} onSearch={handleSearch} />
       </div>
 
