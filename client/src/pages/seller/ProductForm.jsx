@@ -109,57 +109,62 @@ const ProductForm = () => {
   if (loading && isEdit) return <div className="loading-state">Loading product data...</div>;
 
   return (
-    <div className="product-form-container">
-      <h2>{isEdit ? 'Edit Product' : 'Create New Product'}</h2>
+    <div className="card product-form-container" style={{ maxWidth: '600px', margin: '0 auto', padding: 'var(--space-6)' }}>
+      <h2 style={{ fontFamily: 'var(--font-display)', color: 'var(--color-primary)', marginBottom: 'var(--space-6)', textAlign: 'center' }}>
+        {isEdit ? 'Edit Product' : 'Create New Product'}
+      </h2>
       {error && <p className="error">{error}</p>}
       
-      <form onSubmit={handleSubmit} className="auth-form product-form" encType="multipart/form-data">
-        <div className="form-group">
-          <label>Product Name</label>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+      <form onSubmit={handleSubmit} className="product-form" encType="multipart/form-data">
+        <div className="form-group" style={{ marginBottom: 'var(--space-4)' }}>
+          <label style={{ display: 'block', fontWeight: '600', marginBottom: 'var(--space-2)' }}>Product Name</label>
+          <input type="text" className="input" name="name" value={formData.name} onChange={handleChange} required />
         </div>
         
-        <div className="form-group">
-          <label>Description</label>
-          <textarea name="description" value={formData.description} onChange={handleChange} required rows="4"></textarea>
+        <div className="form-group" style={{ marginBottom: 'var(--space-4)' }}>
+          <label style={{ display: 'block', fontWeight: '600', marginBottom: 'var(--space-2)' }}>Description</label>
+          <textarea className="input" name="description" value={formData.description} onChange={handleChange} required rows="4" style={{ resize: 'vertical' }}></textarea>
         </div>
         
-        <div className="form-group">
-          <label>Price ($)</label>
-          <input type="number" step="0.01" name="price" value={formData.price} onChange={handleChange} required />
-        </div>
-        
-        <div className="form-group">
-          <label>Stock</label>
-          <input type="number" name="stock" value={formData.stock} onChange={handleChange} required />
+        <div style={{ display: 'flex', gap: 'var(--space-4)', marginBottom: 'var(--space-4)' }}>
+          <div className="form-group" style={{ flex: 1 }}>
+            <label style={{ display: 'block', fontWeight: '600', marginBottom: 'var(--space-2)' }}>Price ($)</label>
+            <input type="number" className="input" step="0.01" name="price" value={formData.price} onChange={handleChange} required />
+          </div>
+          
+          <div className="form-group" style={{ flex: 1 }}>
+            <label style={{ display: 'block', fontWeight: '600', marginBottom: 'var(--space-2)' }}>Stock</label>
+            <input type="number" className="input" name="stock" value={formData.stock} onChange={handleChange} required />
+          </div>
         </div>
 
-        <div className="form-group">
-          <label>Category</label>
-          <select name="category" value={formData.category} onChange={handleChange} required>
+        <div className="form-group" style={{ marginBottom: 'var(--space-4)' }}>
+          <label style={{ display: 'block', fontWeight: '600', marginBottom: 'var(--space-2)' }}>Category</label>
+          <select className="input" name="category" value={formData.category} onChange={handleChange} required>
             {categories.map(c => (
               <option key={c._id} value={c._id}>{c.name}</option>
             ))}
           </select>
         </div>
 
-        <div className="form-group">
-          <label>City</label>
-          <input type="text" name="city" value={formData.city} onChange={handleChange} required />
+        <div style={{ display: 'flex', gap: 'var(--space-4)', marginBottom: 'var(--space-4)' }}>
+          <div className="form-group" style={{ flex: 1 }}>
+            <label style={{ display: 'block', fontWeight: '600', marginBottom: 'var(--space-2)' }}>City</label>
+            <input type="text" className="input" name="city" value={formData.city} onChange={handleChange} required />
+          </div>
+          <div className="form-group" style={{ flex: 1 }}>
+            <label style={{ display: 'block', fontWeight: '600', marginBottom: 'var(--space-2)' }}>District</label>
+            <input type="text" className="input" name="district" value={formData.district} onChange={handleChange} required />
+          </div>
         </div>
 
-        <div className="form-group">
-          <label>District</label>
-          <input type="text" name="district" value={formData.district} onChange={handleChange} required />
+        <div className="form-group" style={{ marginBottom: 'var(--space-6)' }}>
+          <label style={{ display: 'block', fontWeight: '600', marginBottom: 'var(--space-2)' }}>Product Images (Max 5)</label>
+          <input type="file" className="input" multiple accept="image/*" onChange={handleFileChange} style={{ padding: 'var(--space-2)' }} />
+          {isEdit && <small style={{ display: 'block', marginTop: 'var(--space-1)', color: 'var(--color-text-muted)' }}>Uploading new images will append them to the existing ones.</small>}
         </div>
 
-        <div className="form-group">
-          <label>Product Images (Max 5)</label>
-          <input type="file" multiple accept="image/*" onChange={handleFileChange} />
-          {isEdit && <small>Uploading new images will append them to the existing ones.</small>}
-        </div>
-
-        <button type="submit" disabled={loading}>
+        <button type="submit" className="btn-primary" disabled={loading} style={{ width: '100%', padding: 'var(--space-3)', fontSize: '1.1rem' }}>
           {loading ? 'Saving...' : (isEdit ? 'Update Product' : 'Create Product')}
         </button>
       </form>

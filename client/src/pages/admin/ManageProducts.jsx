@@ -48,42 +48,45 @@ const ManageProducts = () => {
       </div>
 
       {products.length === 0 ? (
-        <div className="empty-state">No products found on the platform.</div>
+        <div className="card empty-state" style={{ textAlign: 'center', padding: 'var(--space-8)' }}>
+          <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', color: 'var(--color-text-muted)' }}>No products found on the platform.</p>
+        </div>
       ) : (
-        <div className="table-responsive">
-          <table className="data-table">
+        <div className="card table-responsive" style={{ padding: '0', overflow: 'hidden' }}>
+          <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr>
-                <th>ID / Image</th>
-                <th>Name</th>
-                <th>Seller</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>Actions</th>
+              <tr style={{ backgroundColor: 'var(--color-bg)', borderBottom: '1px solid var(--color-border)' }}>
+                <th style={{ padding: 'var(--space-4)', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.05em', fontWeight: '600' }}>ID / Image</th>
+                <th style={{ padding: 'var(--space-4)', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.05em', fontWeight: '600' }}>Name</th>
+                <th style={{ padding: 'var(--space-4)', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.05em', fontWeight: '600' }}>Seller</th>
+                <th style={{ padding: 'var(--space-4)', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.05em', fontWeight: '600' }}>Price</th>
+                <th style={{ padding: 'var(--space-4)', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.05em', fontWeight: '600' }}>Status</th>
+                <th style={{ padding: 'var(--space-4)', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.05em', fontWeight: '600' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {products.map(product => (
-                <tr key={product._id} className={!product.isActive ? 'inactive-row' : ''}>
-                  <td>
+              {products.map((product, idx) => (
+                <tr key={product._id} style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: !product.isActive ? 'var(--color-bg)' : (idx % 2 === 0 ? '#fff' : 'var(--color-bg)'), opacity: !product.isActive ? 0.7 : 1, transition: 'background-color 0.2s' }}>
+                  <td style={{ padding: 'var(--space-4)' }}>
                     {product.images?.length > 0 ? (
-                      <img src={`${import.meta.env.VITE_API_URL}${product.images[0]}`} alt={product.name} className="table-img" />
+                      <img src={`${import.meta.env.VITE_API_URL}${product.images[0]}`} alt={product.name} style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: 'var(--radius-sm)' }} />
                     ) : (
-                      <span>{product._id.substring(0, 8)}...</span>
+                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>{product._id.substring(0, 8)}...</span>
                     )}
                   </td>
-                  <td>{product.name}</td>
-                  <td>{product.seller?.name || 'Unknown'}</td>
-                  <td>${product.price.toFixed(2)}</td>
-                  <td>
-                    <span className={`status-badge ${product.isActive ? 'active' : 'inactive'}`}>
+                  <td style={{ padding: 'var(--space-4)', fontWeight: '500' }}>{product.name}</td>
+                  <td style={{ padding: 'var(--space-4)', color: 'var(--color-text-muted)' }}>{product.seller?.name || 'Unknown'}</td>
+                  <td style={{ padding: 'var(--space-4)', fontFamily: 'var(--font-mono)' }}>${product.price.toFixed(2)}</td>
+                  <td style={{ padding: 'var(--space-4)' }}>
+                    <span className={`badge ${product.isActive ? 'active' : 'admin'}`}>
                       {product.isActive ? 'Active' : 'Inactive'}
                     </span>
                   </td>
-                  <td>
+                  <td style={{ padding: 'var(--space-4)' }}>
                     <button 
-                      className={`btn-small ${product.isActive ? 'btn-danger' : 'btn-success'}`}
+                      className={product.isActive ? 'btn-danger' : 'btn-primary'}
                       onClick={() => handleToggleActive(product._id)}
+                      style={{ padding: 'var(--space-2) var(--space-4)', fontSize: '0.875rem' }}
                     >
                       {product.isActive ? 'Deactivate' : 'Activate'}
                     </button>

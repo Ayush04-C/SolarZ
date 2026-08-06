@@ -11,12 +11,13 @@ const SearchBar = ({ initialValue = '', onSearch }) => {
   return (
     <form className="search-bar" onSubmit={handleSubmit}>
       <input 
+        className="input search-input"
         type="text" 
         placeholder="Search products..." 
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button type="submit">Search</button>
+      <button type="submit" className="btn-primary search-btn">Search</button>
     </form>
   );
 };

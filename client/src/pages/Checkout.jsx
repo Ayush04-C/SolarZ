@@ -33,50 +33,51 @@ const Checkout = () => {
 
   return (
     <div className="checkout-page">
-      <h2>Checkout</h2>
+      <h2 style={{ fontFamily: 'var(--font-display)', color: 'var(--color-primary)', marginBottom: 'var(--space-4)' }}>Checkout</h2>
       
       <div className="checkout-layout">
-        <div className="checkout-form">
+        <div className="card checkout-form">
           <form onSubmit={handleCheckout}>
-            <h3>Shipping Information</h3>
-            <div className="form-group" style={{marginTop: '1rem'}}>
-              <label>Full Address</label>
+            <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 'var(--space-4)' }}>Shipping Information</h3>
+            <div className="form-group">
+              <label style={{ fontWeight: '600', marginBottom: 'var(--space-2)', display: 'block' }}>Full Address</label>
               <textarea 
+                className="input"
                 value={address} 
                 onChange={(e) => setAddress(e.target.value)} 
                 required 
                 rows="4"
                 placeholder="123 Main St, Springfield..."
-                style={{width: '100%', padding: '0.75rem', borderRadius: '4px', border: '1px solid #ccc'}}
+                style={{ resize: 'vertical' }}
               ></textarea>
             </div>
             
-            <div className="mock-payment-banner">
-              <strong>Mock Payment — Confirm Order</strong>
-              <p>This is a simulated checkout. Your card will not be charged.</p>
+            <div className="badge active mock-payment-badge" style={{ marginTop: 'var(--space-4)', padding: 'var(--space-2) var(--space-3)', display: 'block', textAlign: 'left', fontWeight: 'normal', textTransform: 'none' }}>
+              <strong style={{ display: 'block', marginBottom: 'var(--space-1)', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: '700' }}>Mock Payment — Confirm Order</strong>
+              <span style={{ fontSize: '0.875rem' }}>This is a simulated checkout. Your card will not be charged.</span>
             </div>
 
             {error && <p className="error">{error}</p>}
             
-            <button type="submit" className="place-order-btn" disabled={loading}>
+            <button type="submit" className="btn-primary place-order-btn" disabled={loading} style={{ width: '100%', marginTop: 'var(--space-6)', padding: 'var(--space-4)', fontSize: '1.1rem' }}>
               {loading ? 'Processing...' : 'Place Order'}
             </button>
           </form>
         </div>
 
-        <div className="checkout-summary">
-          <h3>Order Details</h3>
+        <div className="card checkout-summary">
+          <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: 'var(--space-4)' }}>Order Details</h3>
           <ul className="checkout-item-list">
             {cart.map(item => (
-              <li key={item._id}>
+              <li key={item._id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 'var(--space-2)' }}>
                 <span>{item.product.name} (x{item.quantity})</span>
-                <span>${(item.product.price * item.quantity).toFixed(2)}</span>
+                <span style={{ fontFamily: 'var(--font-mono)' }}>${(item.product.price * item.quantity).toFixed(2)}</span>
               </li>
             ))}
           </ul>
-          <div className="summary-total">
+          <div className="summary-total" style={{ borderTop: '1px solid var(--color-border)', paddingTop: 'var(--space-3)', marginTop: 'var(--space-4)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <strong>Total:</strong>
-            <strong>${total.toFixed(2)}</strong>
+            <strong style={{ fontFamily: 'var(--font-mono)', fontSize: '1.25rem', color: 'var(--color-primary)' }}>${total.toFixed(2)}</strong>
           </div>
         </div>
       </div>

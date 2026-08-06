@@ -32,27 +32,29 @@ const ManageUsers = () => {
       </div>
 
       {users.length === 0 ? (
-        <div className="empty-state">No users found.</div>
+        <div className="card empty-state" style={{ textAlign: 'center', padding: 'var(--space-8)' }}>
+          <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', color: 'var(--color-text-muted)' }}>No users found.</p>
+        </div>
       ) : (
-        <div className="table-responsive">
-          <table className="data-table">
+        <div className="card table-responsive" style={{ padding: '0', overflow: 'hidden' }}>
+          <table className="data-table" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Joined</th>
+              <tr style={{ backgroundColor: 'var(--color-bg)', borderBottom: '1px solid var(--color-border)' }}>
+                <th style={{ padding: 'var(--space-4)', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.05em', fontWeight: '600' }}>ID</th>
+                <th style={{ padding: 'var(--space-4)', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.05em', fontWeight: '600' }}>Name</th>
+                <th style={{ padding: 'var(--space-4)', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.05em', fontWeight: '600' }}>Email</th>
+                <th style={{ padding: 'var(--space-4)', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.05em', fontWeight: '600' }}>Role</th>
+                <th style={{ padding: 'var(--space-4)', color: 'var(--color-text-muted)', textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '0.05em', fontWeight: '600' }}>Joined</th>
               </tr>
             </thead>
             <tbody>
-              {users.map(user => (
-                <tr key={user._id}>
-                  <td>{user._id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td><span className={`role-badge ${user.role}`}>{user.role}</span></td>
-                  <td>{new Date(user.createdAt).toLocaleDateString()}</td>
+              {users.map((user, idx) => (
+                <tr key={user._id} style={{ borderBottom: '1px solid var(--color-border)', backgroundColor: idx % 2 === 0 ? '#fff' : 'var(--color-bg)', transition: 'background-color 0.2s' }}>
+                  <td style={{ padding: 'var(--space-4)', fontFamily: 'var(--font-mono)', fontSize: '0.875rem' }}>{user._id.substring(0, 8)}...</td>
+                  <td style={{ padding: 'var(--space-4)', fontWeight: '500' }}>{user.name}</td>
+                  <td style={{ padding: 'var(--space-4)', color: 'var(--color-text-muted)' }}>{user.email}</td>
+                  <td style={{ padding: 'var(--space-4)' }}><span className={`badge ${user.role}`}>{user.role}</span></td>
+                  <td style={{ padding: 'var(--space-4)', color: 'var(--color-text-muted)', fontSize: '0.875rem' }}>{new Date(user.createdAt).toLocaleDateString()}</td>
                 </tr>
               ))}
             </tbody>
