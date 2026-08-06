@@ -10,7 +10,7 @@ const Cart = () => {
 
   if (cart.length === 0) {
     return (
-      <div className="cart-page empty">
+      <div className="cart-page empty-state">
         <h2>Your Cart is Empty</h2>
         <button onClick={() => navigate('/products')} className="checkout-btn" style={{marginTop: '1rem'}}>Continue Shopping</button>
       </div>

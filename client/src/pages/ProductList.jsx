@@ -96,11 +96,11 @@ const ProductList = () => {
 
         <div className="pl-main">
           {loading ? (
-            <p>Loading products...</p>
+            <div className="loading-state">Loading products...</div>
           ) : error ? (
-            <p className="error">{error}</p>
+            <div className="error-state">{error}</div>
           ) : products.length === 0 ? (
-            <div className="no-products">
+            <div className="empty-state">
               <p>No products found matching your filters.</p>
             </div>
           ) : (
