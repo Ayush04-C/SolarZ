@@ -1,0 +1,133 @@
+/* Buttons */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-5);
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  padding: calc(var(--space-3) - 2px) calc(var(--space-5) - 2px);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-5);
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-danger:hover {
+  background-color: #9A4224;
+}
+
+.btn-danger:active {
+  transform: scale(0.98);
+}
+
+/* Cards */
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.input:focus, .input:focus-visible {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(31, 61, 43, 0.15); /* Suble pine green glow */
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1) var(--space-3);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.badge.buyer { background-color: #E0F2FE; color: #0284C7; }
+.badge.seller { background-color: #FEF9C3; color: #CA8A04; }
+.badge.admin { background-color: #FEE2E2; color: #DC2626; }
+.badge.active { background-color: #DCFCE7; color: #16A34A; }
+.badge.inactive { background-color: #F3F4F6; color: #4B5563; }
+
+/* Price Tag */
+.price-tag {
+  display: inline-block;
+  background-color: var(--color-accent);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-weight: 700; /* Using 700 since 500 isn't available for Space Mono on Google Fonts */
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transform: rotate(-2deg);
+  box-shadow: var(--shadow-sm);
+  font-size: 1.125rem;
+}
