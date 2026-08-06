@@ -10,7 +10,11 @@ const userSchema = new mongoose.Schema({
   address: {
     city: { type: String },
     district: { type: String }
-  }
+  },
+  cart: [{
+    product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+    quantity: { type: Number, default: 1 }
+  }]
 }, { timestamps: true });
 
 // Pre-save hook to hash password
