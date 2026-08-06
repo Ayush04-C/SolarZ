@@ -6,20 +6,24 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ProductList from './pages/ProductList';
 import ProductDetails from './pages/ProductDetails';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import OrderHistory from './pages/OrderHistory';
+import OrderDetails from './pages/OrderDetails';
+import { CartProvider } from './context/CartContext';
 import './index.css'; // Importing global CSS
 
 // Placeholder Pages
 const Home = () => <div><h2>Welcome to Local Goods Marketplace</h2></div>;
-const Cart = () => <div><h2>Cart Page (Coming Soon)</h2></div>;
-const Checkout = () => <div><h2>Checkout Page (Coming Soon)</h2></div>;
 const SellerDashboard = () => <div><h2>Seller Dashboard (Coming Soon)</h2></div>;
 const AdminDashboard = () => <div><h2>Admin Dashboard (Coming Soon)</h2></div>;
 
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Navbar />
+      <CartProvider>
+        <Router>
+          <Navbar />
         <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -32,6 +36,8 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
+              <Route path="/orders" element={<OrderHistory />} />
+              <Route path="/orders/:id" element={<OrderDetails />} />
             </Route>
 
             {/* Seller Routes */}
@@ -46,6 +52,7 @@ function App() {
           </Routes>
         </main>
       </Router>
+      </CartProvider>
     </AuthProvider>
   );
 }
