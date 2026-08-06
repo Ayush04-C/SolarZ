@@ -2,11 +2,13 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import AuthContext from '../context/AuthContext';
+import CartContext from '../context/CartContext';
 
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const { addToCart } = useContext(CartContext);
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,8 +38,12 @@ const ProductDetails = () => {
     
     setAddingToCart(true);
     try {
-      await api.post('/api/cart', { productId: id, quantity: 1 });
-      alert('Product added to cart successfully!');
+      const success = await addToCart(id, 1);
+      if (success) {
+        alert('Product added to cart successfully!');
+      } else {
+        alert('Failed to add to cart.');
+      }
     } catch (err) {
       alert('Failed to add to cart. You might need a Buyer account.');
     } finally {
