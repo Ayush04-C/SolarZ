@@ -9,19 +9,19 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchCart = async () => {
+  const fetchCart = async (background = false) => {
     if (!user) {
       setCart([]);
       return;
     }
-    setLoading(true);
+    if (!background) setLoading(true);
     try {
       const { data } = await api.get('/api/cart');
       setCart(data);
     } catch (err) {
       console.error('Failed to fetch cart', err);
     } finally {
-      setLoading(false);
+      if (!background) setLoading(false);
     }
   };
 
@@ -32,7 +32,7 @@ export const CartProvider = ({ children }) => {
   const addToCart = async (productId, quantity = 1) => {
     try {
       await api.post('/api/cart', { productId, quantity });
-      fetchCart();
+      fetchCart(true);
       return true;
     } catch (error) {
       console.error('Error adding to cart', error);
@@ -43,7 +43,7 @@ export const CartProvider = ({ children }) => {
   const updateQuantity = async (productId, quantity) => {
     try {
       await api.put(`/api/cart/${productId}`, { quantity });
-      fetchCart();
+      fetchCart(true);
     } catch (error) {
       console.error('Error updating cart', error);
     }
@@ -52,7 +52,7 @@ export const CartProvider = ({ children }) => {
   const removeFromCart = async (productId) => {
     try {
       await api.delete(`/api/cart/${productId}`);
-      fetchCart();
+      fetchCart(true);
     } catch (error) {
       console.error('Error removing from cart', error);
     }
