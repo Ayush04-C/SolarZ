@@ -19,14 +19,17 @@ const checkout = async (req, res, next) => {
 
     const orderItems = [];
     let totalAmount = 0;
-
+    
+    // Phase 1: Validate all products are in stock
+    const productsToUpdate = [];
+    
     for (const item of user.cart) {
       const product = await Product.findById(item.product._id);
       if (!product || product.stock < item.quantity) {
         res.status(400);
         throw new Error(`Product ${product ? product.name : item.product} is out of stock`);
       }
-
+      
       orderItems.push({
         product: product._id,
         quantity: item.quantity,
@@ -34,10 +37,13 @@ const checkout = async (req, res, next) => {
       });
 
       totalAmount += product.price * item.quantity;
-      
-      // Decrement stock
-      product.stock -= item.quantity;
-      await product.save();
+      productsToUpdate.push({ product, quantity: item.quantity });
+    }
+
+    // Phase 2: Decrement stock since all items are valid
+    for (const update of productsToUpdate) {
+      update.product.stock -= update.quantity;
+      await update.product.save();
     }
 
     const order = await Order.create({
