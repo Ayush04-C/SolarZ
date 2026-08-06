@@ -4,12 +4,12 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ProductList from './pages/ProductList';
+import ProductDetails from './pages/ProductDetails';
 import './index.css'; // Importing global CSS
 
 // Placeholder Pages
 const Home = () => <div><h2>Welcome to Local Goods Marketplace</h2></div>;
-const Products = () => <div><h2>Products Page (Coming Soon)</h2></div>;
-const ProductDetail = () => <div><h2>Product Detail Page (Coming Soon)</h2></div>;
 const Cart = () => <div><h2>Cart Page (Coming Soon)</h2></div>;
 const Checkout = () => <div><h2>Checkout Page (Coming Soon)</h2></div>;
 const SellerDashboard = () => <div><h2>Seller Dashboard (Coming Soon)</h2></div>;
@@ -25,8 +25,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/:id" element={<ProductDetail />} />
+            <Route path="/products" element={<ProductList />} />
+            <Route path="/products/:id" element={<ProductDetails />} />
             
             {/* Protected Routes for Buyers/Any Authenticated User */}
             <Route element={<ProtectedRoute />}>
