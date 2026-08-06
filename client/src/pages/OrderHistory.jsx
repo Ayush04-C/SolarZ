@@ -20,13 +20,13 @@ const OrderHistory = () => {
     fetchOrders();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="loading-state">Loading...</div>;
 
   return (
     <div className="orders-page">
       <h2>My Order History</h2>
       {orders.length === 0 ? (
-        <p>You haven't placed any orders yet.</p>
+        <div className="empty-state">You haven't placed any orders yet.</div>
       ) : (
         <div className="orders-list">
           {orders.map(order => (

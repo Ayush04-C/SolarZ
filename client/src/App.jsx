@@ -10,13 +10,19 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import OrderHistory from './pages/OrderHistory';
 import OrderDetails from './pages/OrderDetails';
+import SellerDashboard from './pages/seller/SellerDashboard';
+import MyProducts from './pages/seller/MyProducts';
+import ProductForm from './pages/seller/ProductForm';
+import SellerOrders from './pages/seller/SellerOrders';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import ManageUsers from './pages/admin/ManageUsers';
+import ManageProducts from './pages/admin/ManageProducts';
+import ManageOrders from './pages/admin/ManageOrders';
 import { CartProvider } from './context/CartContext';
 import './index.css'; // Importing global CSS
 
 // Placeholder Pages
 const Home = () => <div><h2>Welcome to Local Goods Marketplace</h2></div>;
-const SellerDashboard = () => <div><h2>Seller Dashboard (Coming Soon)</h2></div>;
-const AdminDashboard = () => <div><h2>Admin Dashboard (Coming Soon)</h2></div>;
 
 function App() {
   return (
@@ -42,12 +48,19 @@ function App() {
 
             {/* Seller Routes */}
             <Route element={<ProtectedRoute allowedRoles={['seller']} />}>
-              <Route path="/seller/*" element={<SellerDashboard />} />
+              <Route path="/seller/dashboard" element={<SellerDashboard />} />
+              <Route path="/seller/products" element={<MyProducts />} />
+              <Route path="/seller/products/new" element={<ProductForm />} />
+              <Route path="/seller/products/edit/:id" element={<ProductForm />} />
+              <Route path="/seller/orders" element={<SellerOrders />} />
             </Route>
 
             {/* Admin Routes */}
             <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
-              <Route path="/admin/*" element={<AdminDashboard />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/users" element={<ManageUsers />} />
+              <Route path="/admin/products" element={<ManageProducts />} />
+              <Route path="/admin/orders" element={<ManageOrders />} />
             </Route>
           </Routes>
         </main>

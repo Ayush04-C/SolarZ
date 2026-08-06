@@ -22,8 +22,8 @@ const OrderDetails = () => {
     fetchOrder();
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div className="error">{error}</div>;
+  if (loading) return <div className="loading-state">Loading...</div>;
+  if (error) return <div className="error-state">{error}</div>;
 
   return (
     <div className="order-details-page">

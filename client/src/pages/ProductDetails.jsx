@@ -51,8 +51,8 @@ const ProductDetails = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div className="error">{error}</div>;
+  if (loading) return <div className="loading-state">Loading...</div>;
+  if (error) return <div className="error-state">{error}</div>;
   if (!product) return <div>Product not found</div>;
 
   return (
