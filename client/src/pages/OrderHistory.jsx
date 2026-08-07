@@ -40,7 +40,7 @@ const OrderHistory = () => {
           <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', color: 'var(--color-text-muted)' }}>You haven't placed any orders yet.</p>
         </div>
       ) : (
-        <div className="orders-list">
+        <div className="orders-list" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
           {orders.map(order => (
             <div key={order._id} className="card order-card" style={{ display: 'flex', flexDirection: 'column' }}>
               <div className="order-header" style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--color-border)', paddingBottom: 'var(--space-3)', marginBottom: 'var(--space-3)' }}>
