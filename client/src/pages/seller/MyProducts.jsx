@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../api/axios';
+import toast from 'react-hot-toast';
 
 const MyProducts = () => {
   const [products, setProducts] = useState([]);
@@ -26,8 +27,9 @@ const MyProducts = () => {
     try {
       await api.delete(`/api/products/${id}`);
       fetchMyProducts();
+      toast.success('Product deleted successfully');
     } catch (err) {
-      alert('Failed to delete product.');
+      toast.error('Failed to delete product.');
     }
   };
 

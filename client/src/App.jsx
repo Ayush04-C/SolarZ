@@ -19,6 +19,7 @@ import ManageUsers from './pages/admin/ManageUsers';
 import ManageProducts from './pages/admin/ManageProducts';
 import ManageOrders from './pages/admin/ManageOrders';
 import { CartProvider } from './context/CartContext';
+import { Toaster } from 'react-hot-toast';
 import './index.css'; // Importing global CSS
 
 // Removed Placeholder Pages
@@ -29,6 +30,7 @@ function App() {
       <CartProvider>
         <Router>
           <div className="layout-container">
+            <Toaster position="top-right" />
             <Navbar />
             <main className="main-content">
               <Routes>
