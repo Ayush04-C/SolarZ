@@ -298,14 +298,20 @@ a.card:hover, button.card:hover, .product-card:hover, .card-hoverable:hover {
 .modern-search-bar {
   display: flex;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background-color: rgba(255, 255, 255, 0.95);
   border-radius: 9999px;
   padding: 0 16px;
   height: 48px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+@supports (backdrop-filter: blur(16px)) or (-webkit-backdrop-filter: blur(16px)) {
+  .modern-search-bar {
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
 }
 
 .search-icon, .filter-icon {
@@ -343,15 +349,21 @@ a.card:hover, button.card:hover, .product-card:hover, .card-hoverable:hover {
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.6);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+@supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+  .search-dropdown {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
 }
 
 .dropdown-header {
