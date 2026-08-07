@@ -3,12 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import AuthContext from '../context/AuthContext';
 import CartContext from '../context/CartContext';
+import toast from 'react-hot-toast';
 
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const { addToCart } = useContext(CartContext);
+  const { cart, addToCart, updateQuantity, removeFromCart } = useContext(CartContext);
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,14 +41,31 @@ const ProductDetails = () => {
     try {
       const success = await addToCart(id, 1);
       if (success) {
-        alert('Product added to cart successfully!');
+        toast.success('Product added to cart successfully!');
       } else {
-        alert('Failed to add to cart.');
+        toast.error('Failed to add to cart.');
       }
     } catch (err) {
-      alert('Failed to add to cart. You might need a Buyer account.');
+      toast.error('Failed to add to cart. You might need a Buyer account.');
     } finally {
       setAddingToCart(false);
+    }
+  };
+
+  const cartItem = product ? cart.find(item => item.product?._id === product._id || item.product === product._id) : null;
+  const cartQty = cartItem ? cartItem.quantity : 0;
+
+  const handleDecrease = () => {
+    if (cartQty === 1) {
+      removeFromCart(product._id);
+    } else if (cartQty > 1) {
+      updateQuantity(product._id, cartQty - 1);
+    }
+  };
+
+  const handleIncrease = () => {
+    if (cartQty < product.stock) {
+      updateQuantity(product._id, cartQty + 1);
     }
   };
 
@@ -97,13 +115,21 @@ const ProductDetails = () => {
             </div>
           </div>
           
-          <button 
-            className="btn-primary pd-add-btn" 
-            onClick={handleAddToCart}
-            disabled={addingToCart || product.stock === 0}
-          >
-            {product.stock === 0 ? 'Out of Stock' : addingToCart ? 'Adding...' : 'Add to Cart'}
-          </button>
+          {cartQty > 0 ? (
+            <div className="cart-qty-selector" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', backgroundColor: 'var(--color-bg)', padding: 'var(--space-2)', borderRadius: 'var(--radius-md)', width: 'fit-content' }}>
+              <button className="btn-secondary" onClick={handleDecrease} style={{ padding: 'var(--space-2) var(--space-4)', fontSize: '1.25rem', border: 'none', backgroundColor: 'var(--color-surface)', boxShadow: 'var(--shadow-sm)' }}>-</button>
+              <span style={{ fontWeight: '600', fontSize: '1.25rem', minWidth: '2rem', textAlign: 'center' }}>{cartQty}</span>
+              <button className="btn-secondary" onClick={handleIncrease} disabled={cartQty >= product.stock} style={{ padding: 'var(--space-2) var(--space-4)', fontSize: '1.25rem', border: 'none', backgroundColor: 'var(--color-surface)', boxShadow: 'var(--shadow-sm)' }}>+</button>
+            </div>
+          ) : (
+            <button 
+              className="btn-primary pd-add-btn" 
+              onClick={handleAddToCart}
+              disabled={addingToCart || product.stock === 0}
+            >
+              {product.stock === 0 ? 'Out of Stock' : addingToCart ? 'Adding...' : 'Add to Cart'}
+            </button>
+          )}
         </div>
       </div>
 

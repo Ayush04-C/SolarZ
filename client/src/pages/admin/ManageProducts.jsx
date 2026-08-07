@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../api/axios';
+import toast from 'react-hot-toast';
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
@@ -32,8 +33,9 @@ const ManageProducts = () => {
         }
         return p;
       }));
+      toast.success('Product status updated');
     } catch (err) {
-      alert('Failed to update product status');
+      toast.error('Failed to update product status');
     }
   };
 
