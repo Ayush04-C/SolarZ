@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Product = require('../models/Product');
 const Review = require('../models/Review');
+const Fuse = require('fuse.js');
 
 const createProduct = async (req, res, next) => {
   try {
@@ -37,12 +38,14 @@ const getProducts = async (req, res, next) => {
 
     const pipeline = [];
 
-    // Text search must be the first stage in the pipeline if it exists
-    if (search) {
-      pipeline.push({ $match: { $text: { $search: search } } });
-    }
-
     const matchStage = { isActive: true };
+    if (search) {
+      const searchRegex = new RegExp(search, 'i');
+      matchStage.$or = [
+        { name: { $regex: searchRegex } },
+        { description: { $regex: searchRegex } }
+      ];
+    }
     if (category) matchStage.category = new mongoose.Types.ObjectId(category);
     if (minPrice || maxPrice) {
       matchStage.price = {};
@@ -193,11 +196,36 @@ const getMyProducts = async (req, res, next) => {
   }
 };
 
+const getSearchSuggestions = async (req, res, next) => {
+  try {
+    const { search } = req.query;
+    if (!search) return res.json([]);
+
+    const products = await Product.find({ isActive: true })
+      .populate('category', 'name')
+      .populate('seller', 'name location');
+
+    const options = {
+      keys: ['name', 'description', 'category.name'],
+      threshold: 0.3,
+      includeScore: true
+    };
+
+    const fuse = new Fuse(products, options);
+    const results = fuse.search(search).map(result => result.item);
+
+    res.json(results.slice(0, 5));
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   createProduct,
   getProducts,
   getProductById,
   updateProduct,
   deleteProduct,
-  getMyProducts
+  getMyProducts,
+  getSearchSuggestions
 };
