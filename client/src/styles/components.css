@@ -75,7 +75,8 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.card:hover {
+/* Only pop out on clickable elements */
+a.card:hover, button.card:hover, .product-card:hover, .card-hoverable:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
 }
