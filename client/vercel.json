@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:match*",
+      "destination": "http://20.40.57.68:5000/api/:match*"
+    },
+    {
+      "source": "/uploads/:match*",
+      "destination": "http://20.40.57.68:5000/uploads/:match*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
