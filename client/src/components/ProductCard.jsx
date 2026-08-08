@@ -16,7 +16,7 @@ const ProductCard = ({ product }) => {
           <h3>{product.name}</h3>
         </Link>
         <div className="product-meta">
-          <span className="rating">⭐ {product.rating || '0'}</span>
+          <span className="rating">⭐ {product.rating ? Number(product.rating).toFixed(1) : '0.0'}</span>
         </div>
         <p className="location">
           {product.location?.city || 'Unknown'}
