@@ -129,3 +129,20 @@ Due to time constraints for the initial launch, the following features have been
 3. **Voice Search:** Enhancing accessibility and UX by allowing users to search the catalog via voice input.
 4. **Wishlist Feature:** Allowing users to save items for later without immediately adding them to their active shopping cart.
 5. **Real-time Inventory Subscriptions:** Using WebSockets to dynamically grey out "Add to Cart" buttons if another user purchases the last item in stock.
+
+## Bonus Features Implemented
+
+### AI-Powered Product Recommendations
+- Added a "You Might Also Like" section on each product details page, generated via an OpenAI-compatible AI API (configurable provider — works with OpenAI, Bharat Code, or any OpenAI-compatible endpoint via env vars: `AI_API_KEY`, `AI_BASE_URL`, `AI_MODEL`, `AI_RECOMMENDATIONS_ENABLED`)
+- Falls back gracefully to rule-based recommendations (same category / similar price) if the AI call fails or is disabled, so this feature can never break the product page
+- Setup: see `server/.env.example` for required variables
+
+### Voice Search
+- Added a microphone button to the product search bar using the browser's native Web Speech API (no external API, no key required, zero cost)
+- Supports Chrome/Edge fully, degrades gracefully (mic button hidden) on unsupported browsers like Firefox, so typed search always keeps working everywhere
+- Recognized speech automatically populates the search field and triggers the existing search
+
+### Regional Language Support
+- Added a custom language switcher UI (English / हिन्दी / मराठी) in the navbar that seamlessly translates **all** content on the page—including both static UI text and dynamic database content like product names, descriptions, and user reviews.
+- Implemented using the native Google Translate Web API via a `<GoogleTranslate />` component and custom dropdown, bypassing manual translation files and associated maintenance costs.
+- Selected language persists perfectly across navigation and sessions by modifying the browser's `googtrans` cookie, avoiding all React virtual DOM unmount conflicts by cleanly reloading the DOM with the translation natively applied.
