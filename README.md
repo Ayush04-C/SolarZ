@@ -15,6 +15,14 @@ A full-stack e-commerce marketplace enabling local buyers to discover and purcha
 - **State Management:** React Context API
   - *Justification:* Context API is built-in and perfectly sufficient for managing the global state (Authentication and Cart) without the heavy boilerplate of Redux.
 
+## Test Credentials
+
+For quick local testing across different roles, the database is seeded with the following accounts. All accounts share the same password: `password123`.
+
+- **Admin Account:** `admin@localgoods.com`
+- **Seller Account:** `sunny@localgoods.com` (Sunny Farms)
+- **Buyer Account:** `alice@buyer.com` (Alice Buyer)
+
 ## Folder Structure
 
 ```

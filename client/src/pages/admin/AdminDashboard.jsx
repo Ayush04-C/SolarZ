@@ -40,6 +40,7 @@ const AdminDashboard = () => {
       <div className="dashboard-nav" style={{ display: 'flex', gap: 'var(--space-4)', marginBottom: 'var(--space-8)', flexWrap: 'wrap' }}>
         <Link to="/admin/users" className="card" style={{ textDecoration: 'none', color: 'var(--color-text)', fontWeight: '600', padding: 'var(--space-4)', borderLeft: '4px solid var(--color-primary)', flex: '1 1 200px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>Manage Users</Link>
         <Link to="/admin/products" className="card" style={{ textDecoration: 'none', color: 'var(--color-text)', fontWeight: '600', padding: 'var(--space-4)', borderLeft: '4px solid var(--color-accent)', flex: '1 1 200px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>Manage Products</Link>
+        <Link to="/admin/inventory" className="card" style={{ textDecoration: 'none', color: 'var(--color-text)', fontWeight: '600', padding: 'var(--space-4)', borderLeft: '4px solid var(--color-danger)', flex: '1 1 200px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>Inventory Overview</Link>
         <Link to="/admin/orders" className="card" style={{ textDecoration: 'none', color: 'var(--color-text)', fontWeight: '600', padding: 'var(--space-4)', borderLeft: '4px solid var(--color-text)', flex: '1 1 200px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>Manage Orders</Link>
       </div>
 
