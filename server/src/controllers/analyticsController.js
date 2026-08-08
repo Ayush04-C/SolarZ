@@ -153,6 +153,39 @@ const getSellerAnalytics = async (req, res, next) => {
                 revenue: { $sum: { $multiply: ['$items.priceAtPurchase', '$items.quantity'] } }
               }
             }
+          ],
+          recentOrders: [
+            { $sort: { createdAt: -1 } },
+            { $limit: 50 },
+            {
+              $lookup: {
+                from: 'users',
+                localField: 'buyer',
+                foreignField: '_id',
+                as: 'buyerInfo'
+              }
+            },
+            { $unwind: '$buyerInfo' },
+            {
+              $lookup: {
+                from: 'products',
+                localField: 'items.product',
+                foreignField: '_id',
+                as: 'productInfo'
+              }
+            },
+            { $unwind: '$productInfo' },
+            {
+              $project: {
+                orderId: '$_id',
+                buyerName: '$buyerInfo.name',
+                productName: '$productInfo.name',
+                quantity: '$items.quantity',
+                revenue: { $multiply: ['$items.priceAtPurchase', '$items.quantity'] },
+                date: '$createdAt',
+                _id: 0
+              }
+            }
           ]
         }
       }
@@ -208,7 +241,8 @@ const getSellerAnalytics = async (req, res, next) => {
       summary,
       revenueTrend: trend,
       topProducts: data.topProducts,
-      categoryBreakdown
+      categoryBreakdown,
+      recentOrders: data.recentOrders
     });
 
   } catch (error) {
@@ -295,9 +329,18 @@ const getAdminAnalytics = async (req, res, next) => {
             },
             { $unwind: '$productInfo' },
             {
+              $lookup: {
+                from: 'users',
+                localField: 'productInfo.seller',
+                foreignField: '_id',
+                as: 'sellerInfo'
+              }
+            },
+            { $unwind: '$sellerInfo' },
+            {
               $project: {
                 productId: '$_id',
-                name: '$productInfo.name',
+                name: { $concat: ['$productInfo.name', ' (', '$sellerInfo.name', ')'] },
                 unitsSold: 1,
                 revenue: 1,
                 _id: 0
@@ -447,13 +490,20 @@ const getAdminAnalytics = async (req, res, next) => {
       }));
     }
 
+    // Fetch recent users
+    const recentUsers = await User.find(matchStage)
+      .sort({ createdAt: -1 })
+      .limit(50)
+      .select('name email role createdAt');
+
     res.json({
       summary,
       revenueTrend,
       userGrowthTrend,
       topSellers: data.topSellers,
       topProducts: data.topProducts,
-      categoryBreakdown
+      categoryBreakdown,
+      recentUsers
     });
 
   } catch (error) {
