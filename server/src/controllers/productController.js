@@ -207,7 +207,8 @@ const getSearchSuggestions = async (req, res, next) => {
 
     const options = {
       keys: ['name', 'description', 'category.name'],
-      threshold: 0.3,
+      threshold: 0.4,
+      ignoreLocation: true,
       includeScore: true
     };
 
