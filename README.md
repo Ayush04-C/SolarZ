@@ -57,11 +57,18 @@ cd local-goods-marketplace
 cd server
 npm install
 ```
-Create a `.env` file in the `server` directory:
+Copy the provided `.env.example` file to create your own `.env` file in the `server` directory:
+```bash
+cp .env.example .env
+```
+Open the `.env` file and fill in your actual values. Make sure to configure your AI API keys if you want to use the AI Product Recommendation feature:
 ```env
 PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/local_goods
 JWT_SECRET=your_super_secret_key_here
+
+# Ensure you add your real AI API key here!
+AI_API_KEY=your_api_key_here
 ```
 Start the backend server:
 ```bash
@@ -118,7 +125,7 @@ npm run dev
 ## Known Limitations & Future Enhancements
 Due to time constraints for the initial launch, the following features have been deferred to the future roadmap:
 1. **Cloud Image Storage:** Currently, images are stored locally using `multer`. In a production environment, this should be migrated to **Cloudinary** or AWS S3 for scalable asset delivery.
-2. **AI Recommendations:** Implementing a machine learning model or vector search to recommend products based on user browsing history and cart contents.
+2. **AI Recommendations (Completed):** Implementing a machine learning model to recommend products based on user browsing history and cart contents, powered by any OpenAI-compatible API.
 3. **Voice Search:** Enhancing accessibility and UX by allowing users to search the catalog via voice input.
 4. **Wishlist Feature:** Allowing users to save items for later without immediately adding them to their active shopping cart.
 5. **Real-time Inventory Subscriptions:** Using WebSockets to dynamically grey out "Add to Cart" buttons if another user purchases the last item in stock.
