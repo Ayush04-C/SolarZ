@@ -161,3 +161,12 @@ Due to time constraints for the initial launch, the following features have been
 - Stock is automatically logged and decremented when an order is placed (`orderController`), so the audit trail perfectly reflects both manual seller actions and live automated sales in one unified place.
 - Admins get a platform-wide, read-only inventory overview across all sellers' products, ensuring full oversight without encroaching on seller autonomy.
 - Buyers see live stock signals on product pages — a "low stock" indicator when supply hits the threshold, and a clear "out of stock" state that dynamically disables adding the item to the cart.
+
+### Analytics Dashboard
+- Added data-driven analytics dashboards for both sellers and admins, built entirely on existing order/product/user data via MongoDB aggregation pipelines (`/api/seller/analytics` and `/api/admin/analytics`) — no new data collection, no external analytics service.
+- Sellers see their own revenue trend (`AreaChart`), order volume, average order value, top-selling products (`BarChart`), and category breakdown (`PieChart`), filterable by time range (7/30/90 days or all time).
+- Admins get the platform-wide equivalent, plus user growth trends (`LineChart`) and a top-sellers leaderboard (`BarChart`), for oversight without exposing individual sellers' data to each other.
+- Built with `recharts` for visualization, dynamically styled via CSS variables (`var(--color-primary)`) to match the app's existing design system rather than default chart colors.
+- Handles empty-data states cleanly (e.g. a new seller with no sales yet) rather than showing broken or misleading charts, and includes custom modals and frontend pagination for detailed recent transaction logs.
+
+All five assignment bonus features (AI recommendations, voice search, regional language support, inventory management, analytics dashboard) have now been successfully implemented.
