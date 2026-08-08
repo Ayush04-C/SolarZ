@@ -13,4 +13,7 @@ const orderSchema = new mongoose.Schema({
   paymentStatus: { type: String, enum: ['mock_paid', 'pending'], default: 'pending' }
 }, { timestamps: true });
 
+// Index on createdAt to significantly speed up date-range aggregation queries
+orderSchema.index({ createdAt: -1 });
+
 module.exports = mongoose.model('Order', orderSchema);

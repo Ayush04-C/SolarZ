@@ -154,3 +154,10 @@ Due to time constraints for the initial launch, the following features have been
 - Added a custom language switcher UI (English / हिन्दी / मराठी) in the navbar that seamlessly translates **all** content on the page—including both static UI text and dynamic database content like product names, descriptions, and user reviews.
 - Implemented using the native Google Translate Web API via a `<GoogleTranslate />` component and custom dropdown, bypassing manual translation files and associated maintenance costs.
 - Selected language persists perfectly across navigation and sessions by modifying the browser's `googtrans` cookie, avoiding all React virtual DOM unmount conflicts by cleanly reloading the DOM with the translation natively applied.
+
+### Inventory Management
+- Extended product stock tracking with a seller-configurable `lowStockThreshold` and a dynamically computed `stockStatus` virtual (`in_stock` / `low_stock` / `out_of_stock`).
+- Sellers can restock products or make manual stock corrections through a dedicated Inventory page, with every change recorded in an audit trail (`InventoryLog`) capturing the `type` of change (`restock` / `adjustment` / `sale`), `quantityChange`, before/after stock levels, and an optional `note`.
+- Stock is automatically logged and decremented when an order is placed (`orderController`), so the audit trail perfectly reflects both manual seller actions and live automated sales in one unified place.
+- Admins get a platform-wide, read-only inventory overview across all sellers' products, ensuring full oversight without encroaching on seller autonomy.
+- Buyers see live stock signals on product pages — a "low stock" indicator when supply hits the threshold, and a clear "out of stock" state that dynamically disables adding the item to the cart.
