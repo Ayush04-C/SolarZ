@@ -14,8 +14,19 @@ const productSchema = new mongoose.Schema({
   },
   rating: { type: Number, default: 0 },
   numReviews: { type: Number, default: 0 },
-  isActive: { type: Boolean, default: true }
-}, { timestamps: true });
+  isActive: { type: Boolean, default: true },
+  lowStockThreshold: { type: Number, default: 5 }
+}, { 
+  timestamps: true,
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
+});
+
+productSchema.virtual('stockStatus').get(function() {
+  if (this.stock === 0) return 'out_of_stock';
+  if (this.stock > 0 && this.stock <= this.lowStockThreshold) return 'low_stock';
+  return 'in_stock';
+});
 
 // Text index for keyword search
 productSchema.index({ name: 'text', description: 'text' });
