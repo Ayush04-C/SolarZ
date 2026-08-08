@@ -216,7 +216,7 @@ const SellerAnalytics = () => {
                     {totalOrderPages > 1 && (
                       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 'var(--space-4)', gap: 'var(--space-4)' }}>
                         <button 
-                          className="btn-outline" 
+                          className="btn-secondary" 
                           onClick={() => setOrderPage(p => Math.max(1, p - 1))}
                           disabled={orderPage === 1}
                           style={{ padding: '0.25rem 0.5rem', fontSize: '0.875rem' }}
@@ -227,7 +227,7 @@ const SellerAnalytics = () => {
                           Page {orderPage} of {totalOrderPages}
                         </span>
                         <button 
-                          className="btn-outline" 
+                          className="btn-secondary" 
                           onClick={() => setOrderPage(p => Math.min(totalOrderPages, p + 1))}
                           disabled={orderPage === totalOrderPages}
                           style={{ padding: '0.25rem 0.5rem', fontSize: '0.875rem' }}
