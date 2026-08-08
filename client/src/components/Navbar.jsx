@@ -1,6 +1,8 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import GoogleTranslate from './GoogleTranslate';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -46,6 +48,8 @@ const Navbar = () => {
               <Link to="/register" className="nav-link" onClick={() => setIsMenuOpen(false)}>Register</Link>
             </>
           )}
+          <LanguageSwitcher />
+          <GoogleTranslate />
         </div>
       </div>
     </nav>
