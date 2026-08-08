@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
+import useVoiceSearch, { isSupported } from '../hooks/useVoiceSearch';
 
 const SearchBar = ({ initialValue = '', onSearch }) => {
   const [searchTerm, setSearchTerm] = useState(initialValue);
@@ -9,6 +10,28 @@ const SearchBar = ({ initialValue = '', onSearch }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const wrapperRef = useRef(null);
+
+  const [displayedVoiceError, setDisplayedVoiceError] = useState('');
+  
+  const { isListening, transcript, error: voiceError, startListening, stopListening } = useVoiceSearch((finalText) => {
+    setSearchTerm(finalText);
+    if (onSearch) onSearch(finalText);
+    setShowSuggestions(false);
+  });
+
+  useEffect(() => {
+    if (isListening && transcript) {
+      setSearchTerm(transcript);
+    }
+  }, [transcript, isListening]);
+
+  useEffect(() => {
+    if (voiceError) {
+      setDisplayedVoiceError(voiceError);
+      const t = setTimeout(() => setDisplayedVoiceError(''), 4000);
+      return () => clearTimeout(t);
+    }
+  }, [voiceError]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -60,14 +83,34 @@ const SearchBar = ({ initialValue = '', onSearch }) => {
         <input 
           className="modern-search-input"
           type="text" 
-          placeholder="Search products..." 
+          placeholder={isListening ? "Listening..." : "Search products..."} 
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onFocus={() => {
             if (searchTerm.trim().length > 0) setShowSuggestions(true);
           }}
         />
+        {isSupported && (
+          <button 
+            type="button" 
+            className={`mic-btn ${isListening ? 'listening' : ''}`}
+            onClick={() => isListening ? stopListening() : startListening()}
+            title="Search by voice"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="22"></line>
+            </svg>
+          </button>
+        )}
       </form>
+
+      {displayedVoiceError && (
+        <div className="voice-error">
+          {displayedVoiceError}
+        </div>
+      )}
 
       {showSuggestions && (
         <div className="search-dropdown">
