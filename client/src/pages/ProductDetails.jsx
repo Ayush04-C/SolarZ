@@ -4,6 +4,7 @@ import api from '../api/axios';
 import AuthContext from '../context/AuthContext';
 import CartContext from '../context/CartContext';
 import toast from 'react-hot-toast';
+import RecommendedProducts from '../components/RecommendedProducts';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -151,6 +152,8 @@ const ProductDetails = () => {
           </div>
         )}
       </div>
+      
+      <RecommendedProducts productId={product._id} />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../context/CartContext';
+import RecommendedProducts from '../components/RecommendedProducts';
 
 const Cart = () => {
   const { cart, loading, updateQuantity, removeFromCart } = useContext(CartContext);
@@ -65,6 +66,10 @@ const Cart = () => {
           </button>
         </div>
       </div>
+
+      {cart.length > 0 && (
+        <RecommendedProducts productId={cart[cart.length - 1].product._id} />
+      )}
     </div>
   );
 };
