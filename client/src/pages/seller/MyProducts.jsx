@@ -22,14 +22,17 @@ const MyProducts = () => {
     fetchMyProducts();
   }, []);
 
-  const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this product? (It will be hidden from the store)')) return;
+  const [productToDelete, setProductToDelete] = useState(null);
+
+  const confirmDelete = async (id) => {
     try {
       await api.delete(`/api/products/${id}`);
       fetchMyProducts();
       toast.success('Product deleted successfully');
     } catch (err) {
       toast.error('Failed to delete product.');
+    } finally {
+      setProductToDelete(null);
     }
   };
 
@@ -66,10 +69,26 @@ const MyProducts = () => {
               </div>
               <div className="sp-actions" style={{ display: 'flex', gap: 'var(--space-3)' }}>
                 <Link to={`/seller/products/edit/${product._id}`} className="btn-secondary" style={{ textDecoration: 'none' }}>Edit</Link>
-                <button onClick={() => handleDelete(product._id)} className="btn-danger">Delete</button>
+                <button onClick={() => setProductToDelete(product._id)} className="btn-danger">Delete</button>
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {productToDelete && (
+        <div className="modal-overlay" style={{
+          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000
+        }}>
+          <div className="card" style={{ padding: 'var(--space-6)', maxWidth: '400px', width: '90%' }}>
+            <h3 style={{ fontFamily: 'var(--font-display)', color: 'var(--color-primary)', marginBottom: 'var(--space-3)' }}>Delete Product?</h3>
+            <p style={{ color: 'var(--color-text-muted)', marginBottom: 'var(--space-6)' }}>Are you sure you want to delete this product? It will be permanently hidden from the store.</p>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 'var(--space-3)' }}>
+              <button className="btn-secondary" onClick={() => setProductToDelete(null)}>Cancel</button>
+              <button className="btn-danger" onClick={() => confirmDelete(productToDelete)}>Delete</button>
+            </div>
+          </div>
         </div>
       )}
     </div>
