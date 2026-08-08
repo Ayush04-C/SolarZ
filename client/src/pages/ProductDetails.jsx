@@ -108,11 +108,20 @@ const ProductDetails = () => {
               <strong style={{ color: 'var(--color-text-muted)' }}>Location:</strong> 
               <span>{product.location?.city}, {product.location?.district}</span>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <strong style={{ color: 'var(--color-text-muted)' }}>Stock:</strong> 
-              <span style={{ color: product.stock > 0 ? 'var(--color-primary)' : 'var(--color-danger)', fontWeight: '600' }}>
-                {product.stock > 0 ? `${product.stock} available` : 'Out of Stock'}
-              </span>
+              {product.stock === 0 ? (
+                <span className="badge badge-danger">Out of Stock</span>
+              ) : (
+                <span style={{ color: 'var(--color-primary)', fontWeight: '600' }}>
+                  {product.stock} available
+                  {product.stock <= (product.lowStockThreshold || 5) && (
+                    <span style={{ color: 'var(--color-accent)', marginLeft: 'var(--space-2)' }}>
+                      (Low Stock!)
+                    </span>
+                  )}
+                </span>
+              )}
             </div>
           </div>
           

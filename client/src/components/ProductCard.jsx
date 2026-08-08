@@ -21,6 +21,14 @@ const ProductCard = ({ product }) => {
         <p className="location">
           {product.location?.city || 'Unknown'}
         </p>
+        
+        <div style={{ marginTop: 'var(--space-3)' }}>
+          {product.stock === 0 ? (
+            <span className="badge badge-danger" style={{ fontSize: '0.75rem', padding: 'var(--space-1) var(--space-2)' }}>Out of Stock</span>
+          ) : product.stock > 0 && product.stock <= (product.lowStockThreshold || 5) ? (
+            <span style={{ fontSize: '0.875rem', color: 'var(--color-accent)', fontWeight: '600' }}>Only {product.stock} left in stock</span>
+          ) : null}
+        </div>
       </div>
     </div>
   );

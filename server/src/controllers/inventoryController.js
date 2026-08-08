@@ -71,11 +71,22 @@ const getSellerInventory = async (req, res, next) => {
       stockStatus: p.stockStatus
     }));
 
+    let filteredInventory = inventory;
     if (status) {
-      inventory = inventory.filter(p => p.stockStatus === status);
+      filteredInventory = inventory.filter(p => p.stockStatus === status);
     }
 
-    res.json(inventory);
+    const summary = {
+      totalProducts: inventory.length,
+      inStock: inventory.filter(p => p.stockStatus === 'in_stock').length,
+      lowStock: inventory.filter(p => p.stockStatus === 'low_stock').length,
+      outOfStock: inventory.filter(p => p.stockStatus === 'out_of_stock').length
+    };
+
+    res.json({
+      summary,
+      products: filteredInventory
+    });
   } catch (error) {
     next(error);
   }
