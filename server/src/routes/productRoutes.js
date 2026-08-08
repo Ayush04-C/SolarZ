@@ -9,6 +9,7 @@ const {
   getMyProducts,
   getSearchSuggestions
 } = require('../controllers/productController');
+const { getProductRecommendations } = require('../controllers/recommendationController');
 const { protect, authorize } = require('../middleware/auth');
 const upload = require('../middleware/upload');
 
@@ -25,5 +26,7 @@ router.route('/:id')
   .get(getProductById)
   .put(protect, authorize('seller', 'admin'), upload.array('images', 5), updateProduct)
   .delete(protect, authorize('seller', 'admin'), deleteProduct);
+
+router.get('/:id/recommendations', getProductRecommendations);
 
 module.exports = router;
