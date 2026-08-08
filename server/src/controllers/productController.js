@@ -5,7 +5,7 @@ const Fuse = require('fuse.js');
 
 const createProduct = async (req, res, next) => {
   try {
-    const { name, description, price, category, stock, city, district } = req.body;
+    const { name, description, price, category, stock, city, district, lowStockThreshold } = req.body;
     
     let images = [];
     if (req.files && req.files.length > 0) {
@@ -19,6 +19,7 @@ const createProduct = async (req, res, next) => {
       category,
       seller: req.user._id,
       stock,
+      lowStockThreshold: lowStockThreshold !== undefined ? lowStockThreshold : 5,
       location: { city, district },
       images
     });
@@ -31,7 +32,7 @@ const createProduct = async (req, res, next) => {
 
 const getProducts = async (req, res, next) => {
   try {
-    const { search, category, minPrice, maxPrice, city, minRating, page = 1, limit = 9 } = req.query;
+    const { search, category, minPrice, maxPrice, city, minRating, seller, page = 1, limit = 9 } = req.query;
     
     const skip = (Number(page) - 1) * Number(limit);
     const numLimit = Number(limit);
@@ -47,6 +48,7 @@ const getProducts = async (req, res, next) => {
       ];
     }
     if (category) matchStage.category = new mongoose.Types.ObjectId(category);
+    if (seller) matchStage.seller = new mongoose.Types.ObjectId(seller);
     if (minPrice || maxPrice) {
       matchStage.price = {};
       if (minPrice) matchStage.price.$gte = Number(minPrice);
@@ -139,13 +141,14 @@ const updateProduct = async (req, res, next) => {
     }
 
     // Update fields
-    const { name, description, price, category, stock, city, district } = req.body;
+    const { name, description, price, category, stock, city, district, lowStockThreshold } = req.body;
     
     if (name) product.name = name;
     if (description) product.description = description;
     if (price) product.price = price;
     if (category) product.category = category;
     if (stock !== undefined) product.stock = stock;
+    if (lowStockThreshold !== undefined) product.lowStockThreshold = lowStockThreshold;
     if (city) product.location.city = city;
     if (district) product.location.district = district;
 

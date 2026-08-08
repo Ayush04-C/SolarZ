@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { getUsers, getProducts, toggleProductActive, getOrders } = require('../controllers/adminController');
+const { getAdminInventoryOverview } = require('../controllers/inventoryController');
 const { protect, authorize } = require('../middleware/auth');
 
 router.use(protect);
@@ -10,5 +11,8 @@ router.get('/users', getUsers);
 router.get('/products', getProducts);
 router.put('/products/:id/moderate', toggleProductActive);
 router.get('/orders', getOrders);
+
+// Inventory routes
+router.get('/inventory', getAdminInventoryOverview);
 
 module.exports = router;

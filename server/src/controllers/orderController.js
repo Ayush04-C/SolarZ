@@ -1,6 +1,7 @@
 const Order = require('../models/Order');
 const User = require('../models/User');
 const Product = require('../models/Product');
+const InventoryLog = require('../models/InventoryLog');
 
 const checkout = async (req, res, next) => {
   try {
@@ -53,6 +54,19 @@ const checkout = async (req, res, next) => {
       shippingAddress,
       paymentStatus: 'mock_paid'
     });
+
+    // Create inventory logs for the sale
+    for (const update of productsToUpdate) {
+      await InventoryLog.create({
+        product: update.product._id,
+        seller: update.product.seller,
+        type: 'sale',
+        quantityChange: -update.quantity,
+        previousStock: update.product.stock + update.quantity,
+        newStock: update.product.stock,
+        note: `Sold via order ${order._id}`
+      });
+    }
 
     // Clear cart
     user.cart = [];
