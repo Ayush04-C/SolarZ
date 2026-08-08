@@ -4,11 +4,14 @@ const { getSellerOrders, getSellerStats } = require('../controllers/sellerContro
 const { updateStock, getSellerInventory, getProductStockHistory } = require('../controllers/inventoryController');
 const { protect, authorize } = require('../middleware/auth');
 
+const { getSellerAnalytics } = require('../controllers/analyticsController');
+
 router.use(protect);
 router.use(authorize('seller'));
 
 router.get('/orders', getSellerOrders);
 router.get('/stats', getSellerStats);
+router.get('/analytics', getSellerAnalytics);
 
 // Inventory routes
 router.get('/inventory', getSellerInventory);
