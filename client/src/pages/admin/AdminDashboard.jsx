@@ -42,6 +42,7 @@ const AdminDashboard = () => {
         <Link to="/admin/products" className="card" style={{ textDecoration: 'none', color: 'var(--color-text)', fontWeight: '600', padding: 'var(--space-4)', borderLeft: '4px solid var(--color-accent)', flex: '1 1 200px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>Manage Products</Link>
         <Link to="/admin/inventory" className="card" style={{ textDecoration: 'none', color: 'var(--color-text)', fontWeight: '600', padding: 'var(--space-4)', borderLeft: '4px solid var(--color-danger)', flex: '1 1 200px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>Inventory Overview</Link>
         <Link to="/admin/orders" className="card" style={{ textDecoration: 'none', color: 'var(--color-text)', fontWeight: '600', padding: 'var(--space-4)', borderLeft: '4px solid var(--color-text)', flex: '1 1 200px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>Manage Orders</Link>
+        <Link to="/admin/analytics" className="card" style={{ textDecoration: 'none', color: 'var(--color-text)', fontWeight: '600', padding: 'var(--space-4)', borderLeft: '4px solid var(--color-success, #10b981)', flex: '1 1 200px', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>Analytics</Link>
       </div>
 
       <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--space-6)' }}>

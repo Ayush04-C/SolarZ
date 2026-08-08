@@ -20,6 +20,8 @@ import ManageProducts from './pages/admin/ManageProducts';
 import ManageOrders from './pages/admin/ManageOrders';
 import Inventory from './pages/seller/Inventory';
 import InventoryOverview from './pages/admin/InventoryOverview';
+import SellerAnalytics from './pages/seller/Analytics';
+import AdminAnalytics from './pages/admin/Analytics';
 import { CartProvider } from './context/CartContext';
 import { Toaster } from 'react-hot-toast';
 import './index.css'; // Importing global CSS
@@ -58,6 +60,7 @@ function App() {
                   <Route path="/seller/products/edit/:id" element={<ProductForm />} />
                   <Route path="/seller/orders" element={<SellerOrders />} />
                   <Route path="/seller/inventory" element={<Inventory />} />
+                  <Route path="/seller/analytics" element={<SellerAnalytics />} />
                 </Route>
 
                 {/* Admin Routes */}
@@ -67,6 +70,7 @@ function App() {
                   <Route path="/admin/products" element={<ManageProducts />} />
                   <Route path="/admin/orders" element={<ManageOrders />} />
                   <Route path="/admin/inventory" element={<InventoryOverview />} />
+                  <Route path="/admin/analytics" element={<AdminAnalytics />} />
                 </Route>
               </Routes>
             </main>
