@@ -4,6 +4,7 @@ import api from '../api/axios';
 import ProductCard from '../components/ProductCard';
 import FilterSidebar from '../components/FilterSidebar';
 import SearchBar from '../components/SearchBar';
+import Pagination from '../components/Pagination';
 
 const ProductList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -98,40 +99,28 @@ const ProductList = () => {
         />
 
         <div className="pl-main">
-          {loading ? (
-            <div className="loading-state">Loading products...</div>
-          ) : error ? (
+          {error ? (
             <div className="error-state">{error}</div>
+          ) : products.length === 0 && loading ? (
+            <div className="loading-state">Loading products...</div>
           ) : products.length === 0 ? (
             <div className="empty-state">
               <p>No products found matching your filters.</p>
             </div>
           ) : (
-            <>
+            <div style={{ opacity: loading ? 0.6 : 1, transition: 'opacity 0.2s ease', pointerEvents: loading ? 'none' : 'auto' }}>
               <div className="product-grid">
                 {products.map(product => (
                   <ProductCard key={product._id} product={product} />
                 ))}
               </div>
               
-              {pageData.pages > 1 && (
-                <div className="pagination">
-                  <button 
-                    disabled={pageData.page === 1} 
-                    onClick={() => handlePageChange(pageData.page - 1)}
-                  >
-                    Previous
-                  </button>
-                  <span>Page {pageData.page} of {pageData.pages}</span>
-                  <button 
-                    disabled={pageData.page === pageData.pages} 
-                    onClick={() => handlePageChange(pageData.page + 1)}
-                  >
-                    Next
-                  </button>
-                </div>
-              )}
-            </>
+              <Pagination 
+                currentPage={pageData.page} 
+                totalPages={pageData.pages} 
+                onPageChange={handlePageChange} 
+              />
+            </div>
           )}
         </div>
       </div>

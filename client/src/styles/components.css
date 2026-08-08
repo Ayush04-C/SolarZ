@@ -66,6 +66,12 @@
   transform: scale(0.98);
 }
 
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* Cards */
 .card {
   background-color: var(--color-surface);
@@ -155,7 +161,7 @@ a.card:hover, button.card:hover, .product-card:hover, .card-hoverable:hover {
   border: 1px solid rgba(229, 227, 216, 0.5);
   position: sticky;
   top: var(--space-4);
-  z-index: 50;
+  z-index: 100;
   box-shadow: var(--shadow-md);
   border-radius: 9999px;
   padding: 0 var(--space-5);
@@ -311,20 +317,14 @@ a.card:hover, button.card:hover, .product-card:hover, .card-hoverable:hover {
 .modern-search-bar {
   display: flex;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: 9999px;
   padding: 0 16px;
   height: 48px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-@supports (backdrop-filter: blur(16px)) or (-webkit-backdrop-filter: blur(16px)) {
-  .modern-search-bar {
-    background-color: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-  }
 }
 
 .search-icon, .filter-icon {
@@ -362,21 +362,15 @@ a.card:hover, button.card:hover, .product-card:hover, .card-hoverable:hover {
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.6);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-}
-
-@supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
-  .search-dropdown {
-    background-color: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-  }
 }
 
 .dropdown-header {
@@ -649,4 +643,55 @@ a.card:hover, button.card:hover, .product-card:hover, .card-hoverable:hover {
     width: 100%;
     height: 200px;
   }
+}
+
+/* Reviews Grid */
+.pd-reviews {
+  margin-top: var(--space-8);
+}
+
+.pd-reviews-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+}
+
+.review-list {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(300px, 400px);
+  gap: var(--space-4);
+  overflow-x: auto;
+  padding-bottom: var(--space-4);
+  scroll-snap-type: x mandatory;
+}
+
+.review-list::-webkit-scrollbar {
+  height: 8px;
+}
+
+.review-list::-webkit-scrollbar-track {
+  background: var(--color-bg);
+  border-radius: 4px;
+}
+
+.review-list::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+.review-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  scroll-snap-align: start;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

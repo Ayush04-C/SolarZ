@@ -31,7 +31,7 @@ const createProduct = async (req, res, next) => {
 
 const getProducts = async (req, res, next) => {
   try {
-    const { search, category, minPrice, maxPrice, city, minRating, page = 1, limit = 10 } = req.query;
+    const { search, category, minPrice, maxPrice, city, minRating, page = 1, limit = 9 } = req.query;
     
     const skip = (Number(page) - 1) * Number(limit);
     const numLimit = Number(limit);

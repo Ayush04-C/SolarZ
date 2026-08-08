@@ -94,7 +94,7 @@ const ProductDetails = () => {
           
           <div className="pd-meta" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
             <span className="price-tag pd-price" style={{ fontSize: '1.25rem', padding: 'var(--space-2) var(--space-3)' }}>${product.price.toFixed(2)}</span>
-            <span className="rating pd-rating" style={{ color: 'var(--color-text-muted)' }}>⭐ {product.rating || 'No ratings'}</span>
+            <span className="rating pd-rating" style={{ color: 'var(--color-text-muted)' }}>⭐ {product.rating ? Number(product.rating).toFixed(1) : 'No ratings'}</span>
           </div>
           
           <p className="pd-desc" style={{ lineHeight: '1.7', color: 'var(--color-text)' }}>{product.description}</p>
