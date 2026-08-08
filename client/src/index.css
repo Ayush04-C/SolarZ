@@ -104,3 +104,26 @@ button[type="submit"]:hover { background: #2980b9; }
 .empty-state { padding: 3rem 1rem; text-align: center; color: #7f8c8d; background: #fff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-size: 1.1rem; width: 100%; }
 .loading-state { padding: 3rem 1rem; text-align: center; font-size: 1.2rem; color: #3498db; }
 .error-state { padding: 3rem 1rem; text-align: center; font-size: 1.2rem; color: #e74c3c; }
+
+/* Hide Google Translate Native Elements */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame,
+iframe.goog-te-banner-frame,
+iframe.skiptranslate,
+.goog-te-gadget-icon, 
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+#google_translate_element {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+html, body {
+  top: 0px !important;
+  position: static !important;
+}
+
+/* Hide tooltip that appears on hover over translated text */
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
