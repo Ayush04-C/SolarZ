@@ -133,10 +133,8 @@ npm run dev
 ## Known Limitations & Future Enhancements
 Due to time constraints for the initial launch, the following features have been deferred to the future roadmap:
 1. **Cloud Image Storage:** Currently, images are stored locally using `multer`. In a production environment, this should be migrated to **Cloudinary** or AWS S3 for scalable asset delivery.
-2. **AI Recommendations (Completed):** Implementing a machine learning model to recommend products based on user browsing history and cart contents, powered by any OpenAI-compatible API.
-3. **Voice Search:** Enhancing accessibility and UX by allowing users to search the catalog via voice input.
-4. **Wishlist Feature:** Allowing users to save items for later without immediately adding them to their active shopping cart.
-5. **Real-time Inventory Subscriptions:** Using WebSockets to dynamically grey out "Add to Cart" buttons if another user purchases the last item in stock.
+2. **Wishlist Feature:** Allowing users to save items for later without immediately adding them to their active shopping cart.
+3. **Real-time Inventory Subscriptions:** Using WebSockets to dynamically grey out "Add to Cart" buttons if another user purchases the last item in stock.
 
 ## Bonus Features Implemented
 
